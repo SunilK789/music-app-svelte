@@ -1,0 +1,32 @@
+import { SPOTIFY_BASE_URL } from '$env/static/private';
+import type { LayoutServerLoad } from './$types';
+
+export const load: LayoutServerLoad = async ({ cookies, fetch }) => {
+	const accessToken = cookies.get('access_token');
+
+	if (!accessToken) {
+		return {
+			user: null
+		};
+	}
+
+	const profileRes = await fetch(`${SPOTIFY_BASE_URL}/me`, {
+		headers: {
+			Authorization: `Bearer ${accessToken}`
+		}
+	});
+
+	//console.log(profileRes);
+
+	if (profileRes.status === 200) {
+		const profile: SpotifyApi.CurrentUsersProfileResponse = await profileRes.json();
+
+		return {
+			user: profile
+		};
+	} else {
+		return {
+			user: null
+		};
+	}
+};
