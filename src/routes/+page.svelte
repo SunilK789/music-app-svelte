@@ -6,12 +6,13 @@
 	<div class="icon" >
 		<FaAlgolia />
 	</div>
-	<h1 class="font-bold text-5xl pt-5">Welcome to SvelteKit</h1>
+	<h1 class="font-bold text-5xl pt-5">Welcome to Music Hub</h1>
 </div>
 
-<style lang="postcss">
-  :global(html) {
-    background-color: theme(colors.gray.100);
+<style>
+  h1{
+
+    color: red;
   }
 
   .icon {

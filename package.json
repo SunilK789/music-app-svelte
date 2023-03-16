@@ -34,6 +34,9 @@
 	},
 	"type": "module",
 	"dependencies": {
+		"pkce-gen": "^1.1.0",
+		"sass": "^1.59.3",
+		"scss": "^0.2.4",
 		"svelte-icons": "^2.1.0"
 	}
 }
