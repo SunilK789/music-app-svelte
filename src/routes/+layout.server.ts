@@ -3,6 +3,7 @@ import type { LayoutServerLoad } from './$types';
 
 export const load: LayoutServerLoad = async ({ cookies, fetch }) => {
 	const accessToken = cookies.get('access_token');
+	const refreshToken = cookies.get('refresh_token');
 
 	if (!accessToken) {
 		return {
@@ -24,9 +25,14 @@ export const load: LayoutServerLoad = async ({ cookies, fetch }) => {
 		return {
 			user: profile
 		};
+	} else if (profileRes.status === 401 && refreshToken) {
+		//refresh the token
+		fetch('/api/auth/refresh');
 	} else {
 		return {
 			user: null
 		};
 	}
+		
+
 };
