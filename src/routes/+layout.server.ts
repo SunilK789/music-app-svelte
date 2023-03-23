@@ -19,7 +19,7 @@ export const load: LayoutServerLoad = async ({ cookies, fetch }) => {
 
 	//console.log(profileRes);
 
-	if (profileRes.status === 200) {
+	if (profileRes.ok) {
 		const profile: SpotifyApi.CurrentUsersProfileResponse = await profileRes.json();
 
 		return {

@@ -29,5 +29,5 @@ export const GET: RequestHandler = async ({ cookies, fetch }) => {
 	cookies.set('refresh_token', responseJSON.refresh_token, { path: '/' });
 	cookies.set('access_token', responseJSON.access_token, { path: '/' });
 
-	return responseJSON.json();
+	return responseJSON;
 };
