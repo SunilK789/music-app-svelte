@@ -10,9 +10,15 @@
 
 	export let icon: ComponentType<Icon>;
 	export let label: string;
+
+	let button: HTMLButtonAttributes;
+
+	export function getButton(){
+		return button;
+	}
 </script>
 
-<button on:click on:mousemove on:focus on:keydown {...$$restProps}>
+<button bind:this={button} on:click on:mousemove on:focus on:keydown {...$$restProps}>
 	<svelte:component this={icon} color="var(--text-color)" aria-hidden="true" focusable="false" />
     <span class="visually-hidden">{label}</span>
 </button>
