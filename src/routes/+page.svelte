@@ -9,7 +9,7 @@
 	<h1 class="font-bold text-5xl pt-5">Welcome to Music Hub</h1>
 </div>
 
-<style>
+<style lang="scss">
   h1{
 
     color: red;
