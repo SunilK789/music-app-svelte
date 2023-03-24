@@ -14,5 +14,5 @@ export const load: LayoutLoad = ({ data, url }) => {
 
     return {
         user
-    }
+    };
 };

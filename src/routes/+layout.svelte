@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { page } from '$app/stores';
 	import { Navigation, Header } from '$components';
 	import 'modern-normalize/modern-normalize.css';
 	import '../styles/main.scss';
@@ -15,6 +16,7 @@
 	export let data: LayoutData;
 
 	$: user = data.user;
+
 </script>
 
 <svelte:window bind:scrollY />
