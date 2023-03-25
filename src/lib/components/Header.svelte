@@ -1,12 +1,11 @@
 <script lang="ts">
 	import { browser } from '$app/environment';
+	import { LogoutButton, Navigation } from '$components';
 	import { page } from '$app/stores';
-	import { Navigation, LogoutButton } from '$components';
-	import { ChevronDown, User, ExternalLink } from 'lucide-svelte';
+	import { ChevronDown, ExternalLink } from 'lucide-svelte';
 	import { tippy } from '$actions';
 
-	let user = $page.data.user;
-	console.log(user);
+	$: user = $page.data.user;
 </script>
 
 <div class="content">
@@ -17,46 +16,40 @@
 	</div>
 	<div class="right">
 		<div id="profile-button">
-			<buttton
+			<button
 				class="profile-button"
 				use:tippy={{
-					content: document.getElementById('profile-menu') || undefined, onMount:()=>{
+					content: document.getElementById('profile-menu') || undefined,
+					onMount: () => {
 						const template = document.getElementById('profile-menu');
-						if(template){
-							template.style.display='block';
+						if (template) {
+							template.style.display = 'block';
 						}
-
 					},
-					trigger:'click',
+					trigger: 'click',
 					placement: 'bottom-end',
 					interactive: true,
-					theme:'menu'
+					theme: 'menu'
 				}}
 			>
 				{#if user?.images && user.images.length > 0}
 					<img src={user.images[0].url} alt="" />
-				{:else}
-					<User class="profile-user" />
 				{/if}
 				{user?.display_name} <span class="visually-hidden">Profile menu</span>
-				<ChevronDown class="profile-arrow" />
-			</buttton>
+				<ChevronDown class="profile-arrow" size={22} />
+			</button>
 		</div>
-		<div id="profile-menu" style="display:none">
-			<div class="profile-menu-items">
+		<div id="profile-menu" style="display: none;">
+			<div class="profile-menu-content">
 				<ul>
 					<li>
-						<a href={user?.external_urls.spotify} target="_blank" rel="noopener noreferrer">
-							View on spotify
+						<a href={user?.external_urls.spotify} target="_blank" rel="noopener noreferrer"
+							>View on Spotify
 							<ExternalLink focusable="false" aria-hidden size={20} />
 						</a>
 					</li>
-					<li>
-						<a href="/profile" rel="noopener noreferrer"> View Profile </a>
-					</li>
-					<li>
-						<LogoutButton />
-					</li>
+					<li><a href="/profile">View Profile</a></li>
+					<li><LogoutButton /></li>
 				</ul>
 			</div>
 		</div>
@@ -79,42 +72,35 @@
 		align-items: center;
 		color: var(--text-color);
 		cursor: pointer;
+		:global(.profile-arrow) {
+			margin-left: 3px;
+		}
 		img {
 			width: 28px;
 			height: 28px;
 			border-radius: 100%;
 			margin-right: 10px;
 		}
-		:global(.profile-user) {
-			width: 28px;
-			height: 28px;
-			border-radius: 100%;
-			margin-right: 10px;
-			padding-left: 5px;
-		}
-		:global(.profile-arrow) {
-			margin-left: 5px;
-		}
 		&:hover {
 			background-color: var(--accent-color);
 		}
 	}
-	.profile-menu-items{
+	.profile-menu-content {
 		padding: 5px 0;
-		ul{
+		ul {
 			padding: 0;
 			margin: 0;
 			list-style: none;
-
-			li{
-				&:hover{
-					background-image: linear-gradient(rgba(255,255,255,0.07) 0 0);
+			li {
+				&:hover {
+					background-image: linear-gradient(rgba(255, 255, 255, 0.07) 0 0);
 				}
-				a :global(svg){
+				a :global(svg) {
 					vertical-align: middle;
 					margin-left: 10px;
 				}
-				a, :global(button){
+				a,
+				:global(button) {
 					display: inline-block;
 					padding: 10px 15px;
 					background: none;
@@ -127,7 +113,6 @@
 					font-size: functions.toRem(14);
 				}
 			}
-
 		}
 	}
 </style>

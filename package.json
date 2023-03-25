@@ -41,6 +41,7 @@
 	"dependencies": {
 		"@types/spotify-api": "^0.0.20",
 		"lucide-svelte": "^0.127.0",
+		"nprogress": "^0.2.0",
 		"pkce-gen": "^1.1.0",
 		"scss": "^0.2.4",
 		"svelte-icons": "^2.1.0",

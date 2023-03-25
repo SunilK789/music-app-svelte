@@ -21,8 +21,7 @@ export const load: LayoutServerLoad = async ({ cookies, fetch }) => {
 
 	if (profileRes.ok) {
 		const profile: SpotifyApi.CurrentUsersProfileResponse = await profileRes.json();
-		console.log("user form layout server: ", profile)
-
+		
 		return {
 			user: profile
 		};
