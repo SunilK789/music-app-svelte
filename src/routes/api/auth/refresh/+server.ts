@@ -19,7 +19,7 @@ export const GET: RequestHandler = async ({ cookies, fetch }) => {
 		})
 	});
 	const responseJSON = await response.json();
-    console.log(responseJSON);
+    //console.log(responseJSON);
 	if (responseJSON.error) {
 		cookies.delete('refresh_token', { path: '/' });
 		cookies.delete('access_token', { path: '/' });
