@@ -1,6 +1,6 @@
 <script lang="ts">
 	import Button from "$components/Button.svelte";
-	import { element } from "svelte/internal";
+	import Card from "$components/Card.svelte";
 import type { PageData } from "./$types";
 
 export let data: PageData;
@@ -67,8 +67,7 @@ $: console.log(sections)
 		<div class="grid-items">
 			{#each section.items as item}
 				<div class="grid-item"  style="background-color: black;">
-					<h5>{item.type}</h5>
-					<h3>{item.name}</h3>
+					<Card {item} />
 				</div>
 			{/each}
 		</div>
@@ -77,6 +76,7 @@ $: console.log(sections)
 
 <style lang="scss">
 .content-row{
+	margin-bottom: 40px;
 	.content-row-header{
 		display: flex;
 		align-items: center;
