@@ -56,7 +56,7 @@ $: console.log(sections)
 {#each sections as section}
 
 	<section class="content-row">
-		<div class="conten-row-header">
+		<div class="content-row-header">
 			<div class="left">
 				<h2 class="section-title">{section.title}</h2>
 			</div>
@@ -66,7 +66,7 @@ $: console.log(sections)
 		</div>
 		<div class="grid-items">
 			{#each section.items as item}
-				<div class="grid-item">
+				<div class="grid-item"  style="background-color: black;">
 					<h5>{item.type}</h5>
 					<h3>{item.name}</h3>
 				</div>
@@ -74,3 +74,20 @@ $: console.log(sections)
 		</div>
 	</section>
 {/each}
+
+<style lang="scss">
+.content-row{
+	.content-row-header{
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		margin-bottom: 20px;
+
+		.section-title{
+			font-size: functions.toRem(22);
+			font-weight: 600;
+			margin: 0;
+		}
+	}
+}
+</style>
