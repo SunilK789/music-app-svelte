@@ -111,6 +111,11 @@
 					width: 100%;
 					text-align: left;
 					font-size: functions.toRem(14);
+					border-radius: 0;
+
+					&:hover {
+					background-image: none;
+				}
 				}
 			}
 		}

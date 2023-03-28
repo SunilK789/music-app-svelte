@@ -1,12 +1,12 @@
 <script lang="ts">
-	import type { HTMLButtonAttributes, HTMLAnchorAttributes } from 'svelte/elements';
+	import type { HTMLAnchorAttributes, HTMLButtonAttributes } from 'svelte/elements';
 
-    type Element = $$Generic<'button' | 'a'>
+	type Element = $$Generic<'button' | 'a'>;
 
-    interface ButtonComponentElements{
-        button: HTMLButtonAttributes;
-        a: HTMLAnchorAttributes
-    }
+	interface ButtonComponentElements {
+		button: HTMLButtonAttributes;
+		a: HTMLAnchorAttributes;
+	}
 
 	type $$Props = ButtonComponentElements[Element] & {
 		element: Element;
@@ -44,7 +44,7 @@
 			border: 2px solid var(--accent-color);
 		}
 		&.button-outline {
-			background-color: none;
+			background: none;
 			color: var(--text-color);
 			border: 2px solid;
 		}
@@ -59,7 +59,7 @@
 		}
 		&:hover {
 			&.button-solid,
-			&.button-dange {
+			&.button-danger {
 				background-image: linear-gradient(rgba(0, 0, 0, 0.1) 0 0);
 			}
 			&.button-outline {
@@ -68,7 +68,7 @@
 		}
 		&:active {
 			&.button-solid,
-			&.button-dange {
+			&.button-danger {
 				background-image: linear-gradient(rgba(255, 255, 255, 0.1) 0 0);
 			}
 			&.button-outline {

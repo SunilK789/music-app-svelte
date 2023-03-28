@@ -1,22 +1,22 @@
-<script>
+<script lang="ts">
 	import { invalidateAll } from '$app/navigation';
+	import { Button } from '$components';
 </script>
 
 <form
 	method="POST"
 	action="/api/auth/logout"
 	on:submit|preventDefault={async () => {
-		const res = await fetch('/api/auth/logout', {
+		const response = await fetch('/api/auth/logout', {
 			method: 'POST',
 			headers: {
 				accept: 'application/json'
 			}
 		});
-
-		if (res.ok) {
+		if (response.ok) {
 			invalidateAll();
 		}
 	}}
 >
-	<button type="submit">Logout</button>
+	<Button element="button" type="submit">Logout</Button>
 </form>

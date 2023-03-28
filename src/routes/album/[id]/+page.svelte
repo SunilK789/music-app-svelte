@@ -3,7 +3,6 @@
 	import { ItemPage } from '$components';
 	import type { PageData } from './$types';
 	import TrackList from '$components/TrackList.svelte';
-	import { Album } from 'lucide-svelte';
 
 	export let data: PageData;
 
