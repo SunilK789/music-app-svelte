@@ -5,10 +5,10 @@
 	import '../styles/main.scss';
 	import type { LayoutData } from './$types';
 	import NProgress from 'nprogress';
-	import 'nprogress/nprogress.css'
+	import 'nprogress/nprogress.css';
 	import { afterNavigate, beforeNavigate } from '$app/navigation';
 
-	NProgress.configure({showSpinner: false})
+	NProgress.configure({ showSpinner: false });
 
 	let topbar: HTMLElement;
 	let scrollY: number;
@@ -22,13 +22,13 @@
 
 	$: user = data.user;
 
-	beforeNavigate(()=>{
+	beforeNavigate(() => {
 		NProgress.start();
-	})
+	});
 
-	afterNavigate(()=>{
+	afterNavigate(() => {
 		NProgress.done();
-	})
+	});
 </script>
 
 <svelte:window bind:scrollY />
@@ -36,7 +36,7 @@
 	<title>Spotify{$page.data.title ? ` - ${$page.data.title}` : ''}</title>
 </svelte:head>
 {#if user}
-<a href="#main-content" id="skip-content" class="skip-link">Skip to content</a>
+	<a href="#main-content" id="skip-content" class="skip-link">Skip to content</a>
 {/if}
 
 <div id="main">
@@ -50,7 +50,7 @@
 			<div id="topbar" bind:this={topbar}>
 				<div
 					class="topbar-bg"
-					style:background-color="var(--header-color)"
+					style:background-color={$page.data.color ? $page.data.color : 'var(--header-color)'}
 					style:opacity={`${headerOpacity}`}
 				/>
 				<Header />
@@ -82,6 +82,7 @@
 					top: 0;
 					left: 0;
 					z-index: -1;
+					background-image: linear-gradient(rgba(0,0,0,0.2) 0 0);
 				}
 				@include breakpoint.up('md') {
 					padding: 0 30px;
