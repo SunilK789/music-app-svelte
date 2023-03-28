@@ -2,6 +2,10 @@
 	import { msToTime } from '$helpers';
 	import { Clock8, ListPlus } from 'lucide-svelte';
 	import Player from './Player.svelte';
+	import playingGif from '$assets/playing.gif';
+
+	let currentPlaying: string | null = null;
+	let isPaused = false;
 
 	export let tracks: SpotifyApi.TrackObjectFull[] | SpotifyApi.TrackObjectSimplified[];
 </script>
@@ -20,17 +24,22 @@
 	</div>
 
 	{#each tracks as track, index}
-		<div class="row">
+		<div class="row" class:is-current={currentPlaying===track.id && !isPaused}>
 			<div class="number-column">
-				<span class="number">{index + 1}</span>
+				{#if currentPlaying === track.id && !isPaused}
+					<img class="playing-gif" src={playingGif} alt=""/>
+				{:else}
+					<span class="number">{index + 1}</span>
+				{/if}
 				<div class="player">
 					<Player
 						{track}
 						on:play={(e) => {
-							console.log(e.detail.track);
+							currentPlaying = e.detail.track.id;
+							isPaused = false;
 						}}
 						on:pause={(e) => {
-							console.log(e.detail.track);
+							isPaused = currentPlaying === e.detail.track.id
 						}}
 					/>
 				</div>
@@ -66,6 +75,12 @@
 			align-items: center;
 			padding: 7px 5px;
 			border-radius: 4px;
+
+            &.is-current{
+                .info-column .track-title h4, .number-column span.number {
+                    color: var(--accent-color);
+                }
+            }
 			&.header {
 				border-bottom: 1px solid var(--border);
 				border-radius: 0px;
@@ -84,6 +99,14 @@
 			&:not(.header) {
 				&:hover {
 					background-color: rgba(255, 255, 255, 0.05);
+                    .number-column {
+                        .player {
+                            display: block;
+                        }
+                        span.number , .playing-gif{
+                            display: none;
+                        }
+                    }
 				}
 			}
 			.number-column {
@@ -95,6 +118,13 @@
 					color: var(--light-gray);
 					font-size: functions.toRem(14);
 				}
+
+                .playing-gif{
+                    width: 12px;
+                }
+                .player {
+                    display: none;
+                }
 			}
 			.info-column {
 				flex: 1;
