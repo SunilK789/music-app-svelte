@@ -1,14 +1,18 @@
 <script lang="ts">
-	import { page } from '$app/stores';
+	import { applyAction, enhance } from '$app/forms';
+import { page } from '$app/stores';
 	import { Button, ItemPage } from '$components';
 	import TrackList from '$components/TrackList.svelte';
 	import { Heart } from 'lucide-svelte';
+	import { Result } from 'postcss';
 	import type { ActionData, PageData } from './$types';
 
 	export let data: PageData;
 	export let form: ActionData;
+	export let followButton: Button<'button'>;
 
 	let isLoading = false;
+	let isLoadFollow = false;
 
 	$: color = data.color;
 	$: playlist = data.playlist;
@@ -46,6 +50,7 @@
 	image={playlist.images.length > 0 ? playlist.images[0].url : undefined}
 	{color}
 	type={playlist.type}
+	
 >
 	<div slot="meta">
 		<p class="playlist-description">{@html playlist.description}</p>
@@ -64,8 +69,20 @@
 				class="follow-from"
 				method="post"
 				action={`?/${isFollowing ? 'unFollowPlaylist' : 'followPlaylist'}`}
+				use:enhance={()=>{
+					isLoadFollow = true;
+					return async ({result}) => {
+						isLoadFollow = false;
+						await applyAction(result);
+						followButton.focus();
+
+						if(result.type == "success"){
+							isFollowing = !isFollowing;
+						}
+					}
+				}}
 			>
-				<Button type="submit" element="button" variant="outline">
+				<Button bind:this={followButton} type="submit" element="button" variant="outline" disabled={isLoadFollow}>
 					<Heart aria-hidden focusable="false" fill={isFollowing ? 'var(--text-color)' : 'none'} />
 					{isFollowing ? 'Unfollow' : 'Follow'}
 					<span class="visually-hidden">{playlist.name} playlist</span></Button

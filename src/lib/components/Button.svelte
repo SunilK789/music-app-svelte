@@ -2,6 +2,7 @@
 	import type { HTMLAnchorAttributes, HTMLButtonAttributes } from 'svelte/elements';
 
 	type Element = $$Generic<'button' | 'a'>;
+	let node: HTMLButtonElement | HTMLAnchorElement;
 
 	interface ButtonComponentElements {
 		button: HTMLButtonAttributes;
@@ -17,10 +18,15 @@
 	export let element: Element;
 	export let variant: 'solid' | 'outline' | 'danger' = 'solid';
 	export let className: string = '';
+
+	export function focus() {
+		node.focus();
+	}
 </script>
 
 <svelte:element
 	this={element}
+	bind:this={node}
 	class="button button-{variant} {className}"
 	on:click
 	{...$$restProps}
