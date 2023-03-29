@@ -3,6 +3,7 @@
 import { page } from '$app/stores';
 	import { Button, ItemPage } from '$components';
 	import TrackList from '$components/TrackList.svelte';
+	import { toasts } from '$stores';
 	import { Heart } from 'lucide-svelte';
 	import { Result } from 'postcss';
 	import type { ActionData, PageData } from './$types';
@@ -39,7 +40,7 @@ import { page } from '$app/stores';
 		if (res.ok) {
 			tracks = { ...resJSON, items: [...tracks.items, ...resJSON.items] };
 		} else {
-			alert(resJSON.error.message || 'Could not load data!');
+		 	toasts.error(resJSON.error.message || 'Could not load data!');
 		}
 		isLoading = false;
 	};
@@ -72,13 +73,18 @@ import { page } from '$app/stores';
 				use:enhance={()=>{
 					isLoadFollow = true;
 					return async ({result}) => {
-						isLoadFollow = false;
-						await applyAction(result);
-						followButton.focus();
-
+						isLoadFollow = false;						
+						
 						if(result.type == "success"){
+							await applyAction(result);
 							isFollowing = !isFollowing;
+						} else if (result.type =="failure"){
+							toasts.error(result.data?.followError)
 						}
+						else{
+							await applyAction(result);
+						}
+						followButton.focus();
 					}
 				}}
 			>

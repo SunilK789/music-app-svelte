@@ -1,12 +1,13 @@
 <script lang="ts">
 	import { page } from '$app/stores';
-	import { Navigation, Header, Toasts } from '$components';
+	import { Navigation, Header, Toasts,Button } from '$components';
 	import 'modern-normalize/modern-normalize.css';
 	import '../styles/main.scss';
 	import type { LayoutData } from './$types';
 	import NProgress from 'nprogress';
 	import 'nprogress/nprogress.css';
 	import { afterNavigate, beforeNavigate } from '$app/navigation';
+	import { toasts } from '$stores';
 
 	NProgress.configure({ showSpinner: false });
 
