@@ -1,11 +1,11 @@
 <script lang="ts">
 	import { invalidate } from '$app/navigation';
-import { page } from '$app/stores';
+	import { page } from '$app/stores';
 	import Button from '$components/Button.svelte';
 	import LogoutButton from '$components/LogoutButton.svelte';
 
-    let isRetrying= false;
-    const retryRoute = ["/album/[id]"]
+	let isRetrying = false;
+	const retryRoute = ['/album/[id]', '/playlist/[id]'];
 </script>
 
 <svelte:head>
@@ -29,15 +29,20 @@ import { page } from '$app/stores';
 			<LogoutButton />
 		</div>
 	{/if}
+	
 
-    {#if ![401,404].includes($page.status) && $page.route.id && retryRoute.includes($page.route.id)}
+	{#if ![401, 404].includes($page.status) && $page.route.id && retryRoute.includes($page.route.id)}
 		<div class="button">
-            <Button disabled={isRetrying} element="button" on:click={async ()=>{
-                isRetrying = true;
-                await invalidate(`app:${$page.route.id}`);
-                isRetrying = false;
-            }}>Retry</Button>
-        </div>
+			<Button
+				disabled={isRetrying}
+				element="button"
+				on:click={async () => {
+					isRetrying = true;
+					await invalidate(`app:${$page.route.id}`);
+					isRetrying = false;
+				}}>Retry</Button
+			>
+		</div>
 	{/if}
 </div>
 
