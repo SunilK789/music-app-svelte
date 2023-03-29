@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { page } from '$app/stores';
-	import { Navigation, Header } from '$components';
+	import { Navigation, Header, Toasts } from '$components';
 	import 'modern-normalize/modern-normalize.css';
 	import '../styles/main.scss';
 	import type { LayoutData } from './$types';
@@ -39,6 +39,7 @@
 	<a href="#main-content" id="skip-content" class="skip-link">Skip to content</a>
 {/if}
 
+<Toasts ></Toasts>
 <div id="main">
 	{#if user}
 		<div id="sidebar">
