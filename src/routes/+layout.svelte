@@ -1,16 +1,20 @@
 <script lang="ts">
 	import { page } from '$app/stores';
-	import { Navigation, Header, Toasts,Button } from '$components';
+	import { Navigation, Header, Toasts, Button } from '$components';
 	import 'modern-normalize/modern-normalize.css';
 	import '../styles/main.scss';
 	import type { LayoutData } from './$types';
 	import NProgress from 'nprogress';
 	import 'nprogress/nprogress.css';
+	import MicroModal from 'micromodal';
+	import { browser } from '$app/environment';
 	import { afterNavigate, beforeNavigate } from '$app/navigation';
-	import { toasts } from '$stores';
 
 	NProgress.configure({ showSpinner: false });
 
+	if (browser) {
+		MicroModal.init();
+	}
 	let topbar: HTMLElement;
 	let scrollY: number;
 	let headerOpacity = 0;
@@ -40,7 +44,7 @@
 	<a href="#main-content" id="skip-content" class="skip-link">Skip to content</a>
 {/if}
 
-<Toasts ></Toasts>
+<Toasts />
 <div id="main">
 	{#if user}
 		<div id="sidebar">
@@ -84,7 +88,7 @@
 					top: 0;
 					left: 0;
 					z-index: -1;
-					background-image: linear-gradient(rgba(0,0,0,0.2) 0 0);
+					background-image: linear-gradient(rgba(0, 0, 0, 0.2) 0 0);
 				}
 				@include breakpoint.up('md') {
 					padding: 0 30px;
