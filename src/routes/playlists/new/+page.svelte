@@ -6,5 +6,5 @@
 	export let form: ActionData;
 </script>
 
-<h1>Add a New Playlist</h1>
-<PlaylistForm userID={data.user?.id} {form}></PlaylistForm>
+<h2>Add a New Playlist</h2>
+<PlaylistForm userID={data.user?.id} {form} />

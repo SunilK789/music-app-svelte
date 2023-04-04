@@ -1,27 +1,27 @@
-import { fetchRefresh } from "$helpers";
-import { error } from "@sveltejs/kit";
-import type { PageLoad } from "../$types";
+import { fetchRefresh } from '$helpers';
+import { error } from '@sveltejs/kit';
+import type { PageLoad } from './$types';
 
-export const load: PageLoad = async ({fetch, url})=>{
-    const limit = 6;
-    const page = url.searchParams.get('page')
+export const load: PageLoad = async ({ fetch, url }) => {
+	const limit = 6;
+	const page = url.searchParams.get('page');
 
-    const searchParams = new URLSearchParams({
-        limit: `${limit}`,
-        offset: page ? `${limit * (Number(page) - 1)}` : '0'
-    }).toString();
+	const searchParams = new URLSearchParams({
+		limit: `${limit}`,
+		offset: page ? `${limit * (Number(page) - 1)}` : '0'
+	}).toString();
 
-    const playlistsRes = await fetchRefresh(fetch, `/api/spotify/me/playlists?${searchParams}`);
+	const playlistsRes = await fetchRefresh(fetch, `/api/spotify/me/playlists?${searchParams}`);
 
-    if(!playlistsRes.ok){
-        throw error(playlistsRes.status, "Failed to laod playlists!");
-    }
+	if (!playlistsRes.ok) {
+		throw error(playlistsRes.status, 'Failed to load playlists!');
+	}
 
-    const playlistsResJSON: SpotifyApi.ListOfCurrentUsersPlaylistsResponse =
-			await playlistsRes.json();
+	const playlistsJSON: SpotifyApi.ListOfCurrentUsersPlaylistsResponse = await playlistsRes.json();
 
-            return {
-                userPlaylists: playlistsResJSON,
-                title: 'Your Playlists'
-            }
-}
+	return {
+		userPlaylists: playlistsJSON,
+		title: 'Your Playlists',
+        color: null
+	};
+};

@@ -32,8 +32,8 @@ export const actions: Actions = {
 			return fail(res.status, {
 				name,
 				description,
-				nameError: false,
-				apiError: errorJSON?.error.message || 'An error has occurred!'
+				apiError: errorJSON?.error?.message ?? 'An error has occurred',
+				nameError: false
 			});
 		} else {
 			const resJSON: SpotifyApi.CreatePlaylistResponse = await res.json();

@@ -26,7 +26,7 @@
 
 <style lang="scss">
 	.modal {
-		//display: none;
+		display: none;
 		&:global(.is-open) {
 			display: block;
 		}

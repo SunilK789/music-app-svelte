@@ -4,8 +4,8 @@
 	import { createEventDispatcher } from 'svelte';
 
 	export let paginatedList: SpotifyApi.PagingObject<any>;
-
 	export let isLoading: boolean;
+
 	$: currentPage = $page.url.searchParams.get('page') || 1;
 
 	const dispatch = createEventDispatcher<{
@@ -18,9 +18,10 @@
 		<Button
 			element="button"
 			variant="outline"
-			disabled={isLoading}
-			on:click={() => dispatch('loadmore')}>Load More</Button
+			on:click={() => dispatch('loadmore')}
 		>
+			Load More <span class="visually-hidden">Items</span>
+		</Button>
 	</div>
 {/if}
 
@@ -57,15 +58,14 @@
 	.pagination {
 		display: none;
 		justify-content: space-between;
-		:global(html.no-js) {
+		:global(html.no-js) & {
 			display: flex;
 		}
 	}
-
 	.load-more {
 		padding: 15px;
 		text-align: center;
-		:global(html.no-js) {
+		:global(html.no-js) & {
 			display: none;
 		}
 	}

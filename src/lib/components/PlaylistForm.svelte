@@ -7,7 +7,7 @@
 	export let form: AddActionData | EditActionData;
 	export let userID: string | undefined = undefined;
 	export let action: string | undefined = undefined;
-	export let playlist: SpotifyApi.PlaylistObjectSimplified | SpotifyApi.PlaylistObjectFull;
+	export let playlist: SpotifyApi.PlaylistObjectSimplified | SpotifyApi.PlaylistObjectFull | undefined = undefined;
 </script>
 
 <form method="POST" {action}>

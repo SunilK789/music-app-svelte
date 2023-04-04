@@ -18,6 +18,7 @@ export const load: PageLoad = async ({ fetch, params }) => {
 
     return {
         playlist: playlistJSON,
-        title: `Edit ${playlistJSON.name}`
+        title: `Edit ${playlistJSON.name}`,
+		color : null
     }
 };

@@ -1,11 +1,10 @@
 <script lang="ts">
 	import { applyAction, enhance } from '$app/forms';
-import { page } from '$app/stores';
+	import { page } from '$app/stores';
 	import { Button, ItemPage } from '$components';
 	import TrackList from '$components/TrackList.svelte';
 	import { toasts } from '$stores';
 	import { Heart } from 'lucide-svelte';
-	import { Result } from 'postcss';
 	import type { ActionData, PageData } from './$types';
 
 	export let data: PageData;
@@ -40,7 +39,7 @@ import { page } from '$app/stores';
 		if (res.ok) {
 			tracks = { ...resJSON, items: [...tracks.items, ...resJSON.items] };
 		} else {
-		 	toasts.error(resJSON.error.message || 'Could not load data!');
+			toasts.error(resJSON.error.message || 'Could not load data!');
 		}
 		isLoading = false;
 	};
@@ -51,7 +50,6 @@ import { page } from '$app/stores';
 	image={playlist.images.length > 0 ? playlist.images[0].url : undefined}
 	{color}
 	type={playlist.type}
-	
 >
 	<div slot="meta">
 		<p class="playlist-description">{@html playlist.description}</p>
@@ -64,31 +62,38 @@ import { page } from '$app/stores';
 
 	<div class="playlist-actions">
 		{#if data.user?.id === playlist.owner.id}
-			<Button element="a" variant="outline" href="/playlist/{playlist.id}/edit">Edit Playlist</Button>
+			<Button element="a" variant="outline" href="/playlist/{playlist.id}/edit"
+				>Edit Playlist</Button
+			>
 		{:else if isFollowing !== null}
 			<form
 				class="follow-from"
 				method="post"
 				action={`?/${isFollowing ? 'unFollowPlaylist' : 'followPlaylist'}`}
-				use:enhance={()=>{
+				use:enhance={() => {
 					isLoadFollow = true;
-					return async ({result}) => {
-						isLoadFollow = false;						
-						
-						if(result.type == "success"){
+					return async ({ result }) => {
+						isLoadFollow = false;
+
+						if (result.type == 'success') {
 							await applyAction(result);
 							isFollowing = !isFollowing;
-						} else if (result.type =="failure"){
-							toasts.error(result.data?.followError)
-						}
-						else{
+						} else if (result.type == 'failure') {
+							toasts.error(result.data?.followError);
+						} else {
 							await applyAction(result);
 						}
 						followButton.focus();
-					}
+					};
 				}}
 			>
-				<Button bind:this={followButton} type="submit" element="button" variant="outline" disabled={isLoadFollow}>
+				<Button
+					bind:this={followButton}
+					type="submit"
+					element="button"
+					variant="outline"
+					disabled={isLoadFollow}
+				>
 					<Heart aria-hidden focusable="false" fill={isFollowing ? 'var(--text-color)' : 'none'} />
 					{isFollowing ? 'Unfollow' : 'Follow'}
 					<span class="visually-hidden">{playlist.name} playlist</span></Button
